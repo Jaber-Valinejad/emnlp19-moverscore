@@ -198,8 +198,8 @@ def plot_example(is_flow, reference, translation, device='cuda:0'):
 
     
     i = 0
-    c1 = np.zeros(raw.shape[1], dtype=np.float)
-    c2 = np.zeros(raw.shape[1], dtype=np.float)
+    c1 = np.zeros(raw.shape[1], dtype=np.float64)
+    c2 = np.zeros(raw.shape[1], dtype=np.float64)
     c1[:len(ref_idf[i])] = ref_idf[i]
     c2[len(ref_idf[i]):] = hyp_idf[i]
     
@@ -210,7 +210,7 @@ def plot_example(is_flow, reference, translation, device='cuda:0'):
 
     if is_flow:        
         _, flow = emd_with_flow(c1, c2, dst)
-        new_flow = np.array(flow, dtype=np.float32)    
+        new_flow = np.array(flow, dtype=np.float64)    
         res = new_flow[:len(ref_tokens[i]), len(ref_idf[i]): (len(ref_idf[i])+len(hyp_tokens[i]))]
     else:    
         res = 1./(1. + dst[:len(ref_tokens[i]), len(ref_idf[i]): (len(ref_idf[i])+len(hyp_tokens[i]))]) 
